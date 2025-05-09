@@ -1,5 +1,11 @@
 # chronai
 
+[![Tests][badge-tests]][tests]
+[![Documentation][badge-docs]][documentation]
+
+[badge-tests]: https://img.shields.io/github/actions/workflow/status/jskerman/chronai/test.yaml?branch=main
+[badge-docs]: https://img.shields.io/readthedocs/chronai
+
 The name `chronai` is a contraction of `chrono`, relating to time, and `ai`. The motivation for this repo is to formalise some timeseries analysis algrothims for datasets with the following features:
 
 1. `time` - obviosly
