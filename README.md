@@ -35,7 +35,7 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 
 ## What can (should) we do now (later)?
 
-- [ ] [Sessionization]():
+- [ ] Sessionization:
 
     The act of taking a set of semantically consistant and temporally relevant NL texts and grouping them into one `session` (see glossary).
 
@@ -43,7 +43,7 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 
     Akin to what google trends does.
 
-- [ ] [Temporal Tagging]():
+- [ ] Temporal Tagging:
 
     Tagging a certain categorical dimension with topics with some relevance to a temporal window. For example `user_123` tagged with `Looking for holiday destination` for the window `[2025-05-01, '2025-05-10']`.
 
@@ -54,10 +54,11 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 
 ## TODO
 
+- [x] Set-up docs
+- [x] Set-up tests
+- [ ] Set-up appropriate mocks for the injectables
 - [ ] Build class interfaces
-- [ ] Set-up tests, with appropriate mocks for the injectables
 - [ ] Set-up publishing w/ CICD
 - [ ] Set-up readme's for above routines.
-- [ ] Set-up docs
 - [ ] Set-up glossary
 - [ ] Set-up branch rules
