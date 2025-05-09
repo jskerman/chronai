@@ -51,6 +51,7 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 - [x] Set-up proj structure
 - [x] Set-up docs
 - [x] Set-up tests
+- [ ] Set-up code cov
 - [x] Set-up publishing to pypi w/ CICD
 - [ ] Set-up appropriate mocks for the injectables
 - [ ] Build class interfaces
