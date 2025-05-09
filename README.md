@@ -1,7 +1,7 @@
 # chronai
 
-[![Tests][badge-tests]][tests]
-[![Documentation][badge-docs]][documentation]
+![Tests][badge-tests]
+![Documentation][badge-docs]
 
 [badge-tests]: https://img.shields.io/github/actions/workflow/status/jskerman/chronai/test.yaml?branch=main
 [badge-docs]: https://img.shields.io/readthedocs/chronai
