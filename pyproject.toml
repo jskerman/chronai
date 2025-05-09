@@ -9,10 +9,10 @@ description = "Analysis toolkit for time-series natural language datasets"
 readme = "README.md"
 license = { file = "LICENSE" }
 maintainers = [
-  { name = "Your Name", email = "jack.skerm@gmail.com" },
+  { name = "Jack Skerman", email = "jack.skerm@gmail.com" },
 ]
 authors = [
-  { name = "Your Name" },
+  { name = "Jack Skerman" },
 ]
 requires-python = ">=3.10"
 classifiers = [
@@ -23,7 +23,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "anndata",
+  "sentence-transformers>=4.1",
   # for debug logging (referenced from the issue template)
   "session-info2",
 ]
@@ -131,6 +131,9 @@ testpaths = [ "tests" ]
 xfail_strict = true
 addopts = [
   "--import-mode=importlib", # allow using test files with same name
+]
+pythonpath = [
+  "src",
 ]
 
 [tool.coverage.run]
