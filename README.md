@@ -39,7 +39,7 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 
 - __Sessionization:__ The act of taking a set of semantically consistant and temporally relevant NL texts and grouping them into one `session` (see glossary).
 
-- __[Trending Topics](https://trends.google.com/trending?geo=GB):__ Akin to what google trends does.
+- __[Topic Trends](https://trends.google.com/trending?geo=GB):__ Akin to what google trends does.
 
 - __Temporal Tagging:__ Tagging a certain categorical dimension with topics with some relevance to a temporal window. For example `user_123` tagged with `Looking for holiday destination` for the window `[2025-05-01, '2025-05-10']`.
 
@@ -51,8 +51,11 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 - [x] Set-up proj structure
 - [x] Set-up docs
 - [x] Set-up tests
-- [ ] Set-up code cov
 - [x] Set-up publishing to pypi w/ CICD
+- [x] Sessionization (`s12n`) [README.md](https://github.com/jskerman/chronai/blob/main/src/chronai/s12n/README.md)
+- [x] Topic Trends (`tt`) [README.md](https://github.com/jskerman/chronai/blob/main/src/chronai/topic_trends/README.md)
+- [x] heirarchy_tree (`ht`) [README.md](https://github.com/jskerman/chronai/blob/main/src/chronai/heirarchy_tree/README.md)
+- [ ] Set-up code cov
 - [ ] Set-up appropriate mocks for the injectables
 - [ ] Build class interfaces
 - [ ] Set-up readme's for above routines.
