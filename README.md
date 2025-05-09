@@ -6,7 +6,7 @@
 [badge-tests]: https://img.shields.io/github/actions/workflow/status/jskerman/chronai/test.yaml?branch=main
 [badge-docs]: https://img.shields.io/readthedocs/chronai
 
-[Read the docs!](https://chronai.readthedocs.io/en/latest/index.html)
+[Read the chronai documentation](https://chronai.readthedocs.io/en/latest/index.html)
 
 The name `chronai` is a contraction of `chrono`, relating to time, and `ai`. The motivation for this repo is to formalise some timeseries analysis algrothims for datasets with the following features:
 
@@ -37,21 +37,13 @@ The motivating technology for this tool kit is LLMs. Anthropics December 2024 pa
 
 ## What can (should) we do now (later)?
 
-- [ ] Sessionization:
+- __Sessionization:__ The act of taking a set of semantically consistant and temporally relevant NL texts and grouping them into one `session` (see glossary).
 
-    The act of taking a set of semantically consistant and temporally relevant NL texts and grouping them into one `session` (see glossary).
+- __[Trending Topics](https://trends.google.com/trending?geo=GB):__ Akin to what google trends does.
 
-- [ ] [Trending Topics](https://trends.google.com/trending?geo=GB):
+- __Temporal Tagging:__ Tagging a certain categorical dimension with topics with some relevance to a temporal window. For example `user_123` tagged with `Looking for holiday destination` for the window `[2025-05-01, '2025-05-10']`.
 
-    Akin to what google trends does.
-
-- [ ] Temporal Tagging:
-
-    Tagging a certain categorical dimension with topics with some relevance to a temporal window. For example `user_123` tagged with `Looking for holiday destination` for the window `[2025-05-01, '2025-05-10']`.
-
-- [ ] [Clio](https://arxiv.org/abs/2412.13678):
-
-    While the original paper did not concern itself with time, we should.
+- __[Clio](https://arxiv.org/abs/2412.13678):__ While the original paper did not concern itself with time, we should.
 
 
 ## TODO
