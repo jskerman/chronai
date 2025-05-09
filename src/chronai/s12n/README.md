@@ -1,4 +1,4 @@
-# Sessionization (`szn`)
+# Sessionization (`s12n`)
 
 Often a very important part of dealing with NL timeseries data, which documents deserve to be merged, we call these merged documents `sessions`. For example, with Google Search data we may have:
 
@@ -14,11 +14,11 @@ It goes without saying that for two events to be in the same session they must a
 
 Here we outline two niave strategies and one more advanced strategy.
 
-## Windowed Sessionization (`w-szn`)
+## Windowed Sessionization (`w-s12n`)
 
-In `w-szn`, two consecutive events belong to the same session if they occured within some threshold duration (`w_szn_duration`) of eachother. For example:
+In `w-s12n`, two consecutive events belong to the same session if they occured within some threshold duration (`w_s12n_duration`) of eachother. For example:
 
-`w_szn_duration = 60`
+`w_s12n_duration = 60`
 
 | user\_id | search\_datetime     | search\_text            | session_id |
 | -------- | -------------------- | ----------------------- | ---------- |
@@ -28,20 +28,20 @@ In `w-szn`, two consecutive events belong to the same session if they occured wi
 
 Notice the last event is not in session with id `1` as it occured `61` seconds after the previous event.
 
-### Pros of `w-szn`
+### Pros of `w-s12n`
 * Simple,
 * Fast, and
 * Interpretable.
 
-### Cons of `w-szn`
+### Cons of `w-s12n`
 * Large potential to group unrelated items
-* The parameter `w_szn_duration` is hard to tune
+* The parameter `w_s12n_duration` is hard to tune
 
-## Semantic Sessionization (`s-szn`)
+## Semantic Sessionization (`s-s12n`)
 
-In `s-szn` we consider two consecutive events to be in the same session if the distance between their text embedding vectors is greater than some semantic score threshold (`s_szn_score`). For example:
+In `s-s12n` we consider two consecutive events to be in the same session if the distance between their text embedding vectors is greater than some semantic score threshold (`s_s12n_score`). For example:
 
-`s_szn_score = 0.5`
+`s_s12n_score = 0.5`
 
 | user\_id | search\_datetime     | search\_text            | session_id |
 | -------- | -------------------- | ----------------------- | ---------- |
@@ -51,15 +51,15 @@ In `s-szn` we consider two consecutive events to be in the same session if the d
 
 Notice the last event is not in session with id `1` as `drum and bass` is likley is not semantically simmilar enough to `wimbledon`. `tennis` and `wimbledon` are in the same session because they likley are semantically similar. Notice that the duration is unimportant here.
 
-### Pros of `s-szn`
+### Pros of `s-s12n`
 * Grouped items are semantically consistant
-* Semantic cohesion across the group can be controlled with `s_szn_score`
+* Semantic cohesion across the group can be controlled with `s_s12n_score`
 
-### Cons of `s-szn`
+### Cons of `s-s12n`
 * Requires the computing potentially many embeddings, depending on the model this can be very slow.
-* The parameter `s_szn_score` is hard to tune
+* The parameter `s_s12n_score` is hard to tune
 * One _rogue_ event can break up sessions (e.g. `tennis` -> `wimbledon` -> `drum and bass` -> `the french open` is broken into three sessions when really we should have two sessions, one Tennis related and one Drum and Bass related).
 
-## Windowed-Semantic Sessionization (`ws-szn`)
+## Windowed-Semantic Sessionization (`ws-s12n`)
 
 We can compose the previous two sessionization strategies into one, where for two consecutive events to be in the same sessions they must both be temporially and semantically consistant.
