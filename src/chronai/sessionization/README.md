@@ -1,6 +1,6 @@
 # Sessionization (`s12n`)
 
-Often a very important part of dealing with NL timeseries data, which documents deserve to be merged, we call these merged documents `sessions`. For example, with Google Search data we may have:
+Sessionization is a crucial step when working with natural language (NL) time series data. It helps determine which events (e.g., user queries or actions) should be grouped together into a single `session`. For instance, with Google Search data, we might observe:
 
 | user\_id | search\_datetime     | search\_text            |
 | -------- | -------------------- | ----------------------- |
@@ -8,58 +8,73 @@ Often a very important part of dealing with NL timeseries data, which documents 
 | 1        | 2025-05-08T09:08:12Z | how to deal with stress |
 | 1        | 2025-05-08T09:11:45Z | benefits of mindfulness |
 
-Notice these searches are related, ideally we should assign them all to the same `session`. When read together, it's clear this user is trying to user meditation / mindfulness to deal with stress. When each row is taken independantly, this is harder to construct. Herein lies the benifit of sessionization.
+These queries are clearly related. Ideally, they should be assigned to the same session. When viewed together, we can infer that the user is exploring meditation and mindfulness to cope with stress. Taken in isolation, each event conveys much less context. This is the value of sessionization.
 
-It goes without saying that for two events to be in the same session they must also belong to the same `user_id`. Here we can introduce a notion of splitting and non-splitting categories (See later).
+Naturally, events must belong to the same `user_id` to be considered for the same session. We can also introduce the concept of **splitting** and **non-splitting** categories (see below for more details).
 
-Here we outline two niave strategies and one more advanced strategy.
+Below, we outline two naïve strategies and one more advanced strategy for sessionization.
+
+---
 
 ## Windowed Sessionization (`w-s12n`)
 
-In `w-s12n`, two consecutive events belong to the same session if they occured within some threshold duration (`w_s12n_duration`) of eachother. For example:
+In `w-s12n`, two consecutive events belong to the same session if they occurred within a certain time window (`w_s12n_duration`) of each other. For example:
 
-`w_s12n_duration = 60`
+```python
+w_s12n_duration = 60  # seconds
+```
 
-| user\_id | search\_datetime     | search\_text            | session_id |
-| -------- | -------------------- | ----------------------- | ---------- |
-| 1        | 2025-05-08T09:00:00Z | blah                    | 1          |
-| 1        | 2025-05-08T09:30:00Z | blah                    | 1          |
-| 1        | 2025-05-08T10:31:45Z | blah                    | 2          |
+| user\_id | search\_datetime     | search\_text | session\_id |
+| -------- | -------------------- | ------------ | ----------- |
+| 1        | 2025-05-08T09:00:00Z | blah         | 1           |
+| 1        | 2025-05-08T09:00:30Z | blah         | 1           |
+| 1        | 2025-05-08T09:01:45Z | blah         | 2           |
 
-Notice the last event is not in session with id `1` as it occured `61` seconds after the previous event.
+The last event is not in the same session as the previous one because it occurred 75 seconds later—beyond the 60-second threshold.
 
 ### Pros of `w-s12n`
-* Simple,
-* Fast, and
-* Interpretable.
+
+* Simple
+* Fast
+* Easy to interpret
 
 ### Cons of `w-s12n`
-* Large potential to group unrelated items
-* The parameter `w_s12n_duration` is hard to tune
+
+* May group unrelated events
+* The parameter `w_s12n_duration` is difficult to tune
+
+---
 
 ## Semantic Sessionization (`s-s12n`)
 
-In `s-s12n` we consider two consecutive events to be in the same session if the distance between their text embedding vectors is greater than some semantic score threshold (`s_s12n_score`). For example:
+In `s-s12n`, two consecutive events are grouped into the same session based on the **semantic similarity** of their text. Specifically, the cosine similarity between their embeddings must exceed a threshold (`s_s12n_score`).
 
-`s_s12n_score = 0.5`
+```python
+s_s12n_score = 0.5
+```
 
-| user\_id | search\_datetime     | search\_text            | session_id |
-| -------- | -------------------- | ----------------------- | ---------- |
-| 1        | 2025-05-08T09:00:00Z | tennis                  | 1          |
-| 1        | 2025-05-09T09:30:00Z | wimbledon               | 1          |
-| 1        | 2025-05-09T09:31:45Z | drum and bass           | 2          |
+| user\_id | search\_datetime     | search\_text  | session\_id |
+| -------- | -------------------- | ------------- | ----------- |
+| 1        | 2025-05-09T09:00:00Z | tennis        | 1           |
+| 1        | 2025-05-09T09:30:00Z | wimbledon     | 1           |
+| 1        | 2025-05-09T09:31:45Z | drum and bass | 2           |
 
-Notice the last event is not in session with id `1` as `drum and bass` is likley is not semantically simmilar enough to `wimbledon`. `tennis` and `wimbledon` are in the same session because they likley are semantically similar. Notice that the duration is unimportant here.
+Here, `tennis` and `wimbledon` are semantically similar and grouped in the same session. However, `drum and bass` is not similar enough to be included. Time is irrelevant in this method.
 
 ### Pros of `s-s12n`
-* Grouped items are semantically consistant
-* Semantic cohesion across the group can be controlled with `s_s12n_score`
+
+* Groups semantically consistent events
+* Semantic cohesion is tunable via `s_s12n_score`
 
 ### Cons of `s-s12n`
-* Requires the computing potentially many embeddings, depending on the model this can be very slow.
-* The parameter `s_s12n_score` is hard to tune
-* One _rogue_ event can break up sessions (e.g. `tennis` -> `wimbledon` -> `drum and bass` -> `the french open` is broken into three sessions when really we should have two sessions, one Tennis related and one Drum and Bass related).
+
+* Requires computing many embeddings, which can be slow depending on the model
+* `s_s12n_score` is difficult to tune
+* One rogue event can break a coherent session
+  (e.g., `tennis` → `wimbledon` → `drum and bass` → `the french open` gets split into three sessions, when two would be better)
+
+---
 
 ## Windowed-Semantic Sessionization (`ws-s12n`)
 
-We can compose the previous two sessionization strategies into one, where for two consecutive events to be in the same sessions they must both be temporially and semantically consistant.
+This hybrid approach combines the time-based and semantic methods. Two events are assigned to the same session **only if** they are both temporally and semantically consistent.
