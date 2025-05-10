@@ -227,8 +227,10 @@ name = "chronai"
 version = "0.0.3"
 source = { editable = "." }
 dependencies = [
+    { name = "pandas" },
     { name = "sentence-transformers" },
     { name = "session-info2" },
+    { name = "tqdm" },
 ]
 
 [package.optional-dependencies]
@@ -266,10 +268,11 @@ requires-dist = [
     { name = "ipykernel", marker = "extra == 'doc'" },
     { name = "ipython", marker = "extra == 'doc'" },
     { name = "myst-nb", marker = "extra == 'doc'", specifier = ">=1.1" },
+    { name = "pandas", specifier = ">=2.2.3" },
     { name = "pandas", marker = "extra == 'doc'" },
     { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'test'" },
-    { name = "sentence-transformers", specifier = ">=4.1.0" },
+    { name = "sentence-transformers", specifier = ">=4.1" },
     { name = "session-info2" },
     { name = "setuptools", marker = "extra == 'doc'" },
     { name = "sphinx", marker = "extra == 'doc'", specifier = ">=8.1" },
@@ -279,6 +282,7 @@ requires-dist = [
     { name = "sphinx-tabs", marker = "extra == 'doc'" },
     { name = "sphinxcontrib-bibtex", marker = "extra == 'doc'", specifier = ">=1" },
     { name = "sphinxext-opengraph", marker = "extra == 'doc'" },
+    { name = "tqdm", specifier = ">=4.67.1" },
     { name = "twine", marker = "extra == 'dev'", specifier = ">=4.0.2" },
 ]
 provides-extras = ["dev", "doc", "test"]

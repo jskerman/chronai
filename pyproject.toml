@@ -23,9 +23,11 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
+  "pandas>=2.2.3",
   "sentence-transformers>=4.1",
   # for debug logging (referenced from the issue template)
   "session-info2",
+  "tqdm>=4.67.1",
 ]
 optional-dependencies.dev = [
   "pre-commit",
