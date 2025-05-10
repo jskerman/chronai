@@ -1,0 +1,4 @@
+EVENT_TEXT_COLUMN = "text"
+EVENT_ASAT_COLUMN = "asat"
+EVENT_CATEGORY_COLUMN = "category"
+SESSION_ID_COLUMN = "session_id"
