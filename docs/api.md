@@ -3,7 +3,7 @@
 ## Sessionization (`s12n`)
 
 ```{eval-rst}
-.. module:: chronai.s12n
+.. module:: chronai.sessionization
 .. currentmodule:: chronai
 
 .. autosummary::

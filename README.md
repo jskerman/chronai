@@ -8,7 +8,7 @@
 
 [Read the chronai documentation](https://chronai.readthedocs.io/en/latest/index.html)
 
-The name `chronai` is a contraction of `chrono`, relating to time, and `ai`. The motivation for this repo is to formalise some timeseries analysis algrothims for datasets with the following features:
+The motivation for this repo is to formalise some timeseries analysis algrothims for datasets with the following features:
 
 1. `time` - obviosly
 2. `text` - some narural language field
